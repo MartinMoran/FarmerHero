@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7517445635588275215}
   - component: {fileID: 7814833388370673890}
   - component: {fileID: 3365370972819070476}
+  - component: {fileID: -295707961599138302}
   m_Layer: 0
   m_Name: SoldierArcher
   m_TagString: Soldier
@@ -174,3 +175,26 @@ MonoBehaviour:
   damage: 10
   attackCooldown: 1.5
   moveSpeed: 3
+  troopType: 1
+--- !u!95 &-295707961599138302
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2720472354477663777}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e69e54e6f75584bf382ddbe934f532b6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1876095345109748093}
   - component: {fileID: 1898766378141889491}
   - component: {fileID: 3104942824523989298}
+  - component: {fileID: -629063116101344707}
   m_Layer: 0
   m_Name: EnemyPike
   m_TagString: Enemy
@@ -176,3 +177,25 @@ MonoBehaviour:
   moveSpeed: 2.5
   player: {fileID: 0}
   spriteRenderer: {fileID: 0}
+--- !u!95 &-629063116101344707
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5388916725232236936}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c0adc132f8afd46f6bb864d14269d701, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

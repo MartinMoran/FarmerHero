@@ -16,10 +16,11 @@ public class Monk : MonoBehaviour
     private bool secondMessage = false;
 
     private SpriteRenderer spriteRenderer;
+    private Animator animator;
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        
+        animator = GetComponent<Animator>();
     }
  
     void Update()
@@ -27,6 +28,7 @@ public class Monk : MonoBehaviour
         FlipSprite();
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
+        animator.SetBool("isWalking", !hasTalked && distanceToPlayer > interactionRange);
 
         if (hasTalked == false)
         {

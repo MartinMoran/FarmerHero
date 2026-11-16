@@ -2,11 +2,17 @@ using UnityEngine;
 
 public class Resource : MonoBehaviour
 {
+    private enum DepletionBehaviour
+    {
+        Automatic,
+        ReplaceSprite,
+        DisableGameObject
+    }
     [SerializeField] private ResourceType resourceType = ResourceType.Wood;
     [SerializeField] private int amount = 1;
     [SerializeField] private int harvestAmount = 5;
     [SerializeField] private Sprite depletedSprite;
-    
+    [SerializeField] private DepletionBehaviour depletionBehaviour = DepletionBehaviour.Automatic;
     private SpriteRenderer spriteRenderer;
     private Collider2D resourceCollider;
     private bool isDepleted = false;
@@ -62,7 +68,16 @@ public class Resource : MonoBehaviour
     {
         isDepleted = true;
 
-        // Cambia la imagen a la del recurso agotado
+        bool shouldDisable = depletionBehaviour == DepletionBehaviour.DisableGameObject ||
+            (depletionBehaviour == DepletionBehaviour.Automatic && resourceType != ResourceType.Wood);
+
+        if (shouldDisable)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+
+        // Para los árboles se conserva el objeto y se muestra su sprite agotado.
         if (depletedSprite != null)
         {
             spriteRenderer.sprite = depletedSprite;

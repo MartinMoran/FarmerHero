@@ -1,34 +1,49 @@
 using UnityEngine;
 
-public class Soldier : MonoBehaviour
+public class Soldier : Fighter
 {
-    [SerializeField] private int health = 50;
-    [SerializeField] private int damage = 10;
-    [SerializeField] private float attackCooldown = 1.5f;
-    [SerializeField] private float moveSpeed = 3f;
-
     private Rigidbody2D rb;
+    private Animator animator;
     private float nextAttackTime = 0f;
     private GameObject currentEnemy; // Guarda el enemigo con el que está chocando
+    [SerializeField] private TroopType troopType;
+    private PlayerInventory inventory;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+
+        inventory = GameManager.Instance.GetComponent<PlayerInventory>();
+        inventory.ChangeTroopCount(troopType, 1); // Aumenta la cantidad de soldados vivos al inicio
     }
+
+    protected override void Die()
+    {
+        inventory.ChangeTroopCount(troopType, -1); // Disminuye la cantidad de soldados vivos al morir
+        base.Die(); // Llama al método Die() de la clase base para manejar la muerte del soldado
+    }
+
     private void Update()
     {
         // SI ESTÁ CHOCANDO CON UN ENEMIGO: Se queda quieto y ataca
         if (currentEnemy != null)
         {
+            FaceTarget(currentEnemy.transform); // Orienta al soldado hacia el enemigo
             rb.linearVelocity = Vector2.zero;
 
             if (Time.time >= nextAttackTime)
             {
-                Enemy enemyScript = currentEnemy.GetComponent<Enemy>();
-                if (enemyScript != null)
+                IDamageable target = currentEnemy.GetComponent(typeof(IDamageable)) as IDamageable;
+                if (target != null)
                 {
-                    enemyScript.TakeDamage(damage);
-                    nextAttackTime = Time.time + attackCooldown;
+                    if (animator != null)
+                    {
+                        animator.SetTrigger("attack"); // Activa la animación de ataque
+                    }
+
+                    target.TakeDamage(Damage);
+                    nextAttackTime = Time.time + AttackCooldown;
                 }
             }
         }
@@ -36,6 +51,14 @@ public class Soldier : MonoBehaviour
         else
         {
             MoveTowardsTarget();
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if (animator != null)
+        {
+            animator.SetBool("isWalking", rb.linearVelocity.magnitude > 0.1f);
         }
     }
 
@@ -62,18 +85,9 @@ public class Soldier : MonoBehaviour
             }
         }
 
+        FaceTarget(closestEnemy.transform); // Orienta al soldado hacia el enemigo más cercano
         Vector2 direction = (closestEnemy.transform.position - transform.position).normalized;
-        rb.linearVelocity = direction * moveSpeed;
-    }
-
-    // Función pública por si el enemigo le quiere pegar a este soldado
-    public void TakeDamage(int amount)
-    {
-        health -= amount;
-        Debug.Log(gameObject.name + " (Soldado) recibió daño. Vida: " + health);
-
-        if (health <= 0)
-            Destroy(gameObject);
+        rb.linearVelocity = direction * MoveSpeed;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

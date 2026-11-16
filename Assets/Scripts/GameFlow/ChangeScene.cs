@@ -4,15 +4,14 @@ using UnityEngine.SceneManagement;
 public class ChangeScene : MonoBehaviour
 {
     [SerializeField] private string nextSceneName;
-
     void Start()
     {
-        Time.timeScale = 1f;
+        GameManager.Instance.ResumeGame();
         Invoke(nameof(LoadNextScene), 2f);
     }
 
     private void LoadNextScene()
     {
-        SceneManager.LoadScene(nextSceneName);
+        GameManager.Instance.LoadScene(nextSceneName);
     }
 }

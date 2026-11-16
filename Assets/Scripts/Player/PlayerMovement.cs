@@ -73,14 +73,7 @@ public class PlayerMovement : MonoBehaviour
     // Funcion para activar animacion de caminar/idle dependiendo del movimiento del personaje
     private void CheckWalk()
     {
-        if (Mathf.Abs(mov.x) > 0 || Mathf.Abs(mov.y) > 0)
-        {
-            animator.Play("Pawn_Run_Blue");
-        }
-        else
-        {
-            animator.Play("Pawn_Idle_Blue");
-        }
+        animator.SetBool("isWalking", mov.x != 0 || mov.y != 0);
     }
 
     private void FlipSprite()

@@ -22,11 +22,6 @@ public class SurvivalTimer : MonoBehaviour
         if (timer >= survivalTime)
         {
             finished = true;
-
-            PlayerInteraction interaction = FindAnyObjectByType<PlayerInteraction>();
-            if (interaction != null)
-                interaction.enabled = false;
-
             Time.timeScale = 1f;
             SceneManager.LoadScene(victorySceneName);
         }

@@ -5,8 +5,7 @@ public class VictoryScreen : MonoBehaviour
 {
     public void LoadScene(string sceneName)
     {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(sceneName);
+        GameManager.Instance.LoadScene(sceneName);
     }
     public void QuitGame()
     {

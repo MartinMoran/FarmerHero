@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : MonoBehaviour, IDamageable
 {
     [SerializeField] private int maxHealth = 100;
     [SerializeField] private int currentHealth = 100;
@@ -31,7 +31,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
-        SceneManager.LoadScene(gameOverSceneName);
+        GameManager.Instance.DeclareDefeat(gameOverSceneName);
     }
 
     private void UpdateHealthBar()
